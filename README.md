@@ -46,7 +46,7 @@ This PR changes:
 
 ## Inputs
 
-## `token`
+### `token`
 
 **Required** The `GITHUB_TOKEN` secret for the repository. It is required to
 give access to the action to perform changes to the Pull Request body using the
@@ -55,7 +55,7 @@ GitHub API.
 ## Example usage
 
 ```yaml
-      - uses: luigibertaco/dynamic-template-action
+      - uses: luigibertaco/dynamic-template-action@1.0.0
         with:
           token: "${{ secrets.GITHUB_TOKEN }}"
 ```
