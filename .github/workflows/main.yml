@@ -7,6 +7,6 @@ jobs:
     runs-on: ubuntu-latest
     name: Apply dynamic template changes
     steps:
-      - uses: luigibertaco/dynamic-template-action
+      - uses: luigibertaco/dynamic-template-action@1.0.0
         with:
           token: "${{ secrets.GITHUB_TOKEN }}"
