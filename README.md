@@ -55,7 +55,7 @@ GitHub API.
 ## Example usage
 
 ```yaml
-      - uses: luigibertaco/dynamic-template-action
+      - uses: luigibertaco/dynamic-template-action@1.0.0
         with:
           token: "${{ secrets.GITHUB_TOKEN }}"
 ```
