@@ -13,7 +13,7 @@ PR body, the repository PR template would have something similar to the
 following:
 
 ```markdown
-Related to https://your-jira-url.com/browse/{head.ref}
+Related to https://your-jira-url.com/browse/{{head.ref}}
 
 This PR changes:
   - 
@@ -27,7 +27,7 @@ if the base branch for the current PR is called `BUG-123` and the user adds
 information to the body while creating the PR, it will save the body as:
 
 ```markdown
-Related to https://your-jira-url.com/browse/{head.ref}
+Related to https://your-jira-url.com/browse/{{head.ref}}
 
 This PR changes:
   - Adds a 500 line snippet from stackoverflow that I don't know how it works,
