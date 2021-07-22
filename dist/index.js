@@ -7069,12 +7069,12 @@ async function run(){
 
       // Get the JSON webhook payload for the event that triggered the workflow
       const payload = JSON.stringify(github.context.payload, undefined, 2)
-      core.info(`The event payload: ${payload}`);
+      //core.info(`The event payload: ${payload}`);
 
       // Show PR details
       const pr = github.context.payload.pull_request;
       core.info(`Pull request body: ${pr.body}`);
-      core.info(`Pull request head ref: ${pr.head.ref}`);
+      core.info(`Pull request title: ${pr.title}`);
 
       // update PR body
       const octokit = github.getOctokit(ghToken);
@@ -7085,6 +7085,7 @@ async function run(){
         body: mustache.render(pr.body, pr),
         title: mustache.render(pr.title, pr),
       }
+      core.info(`update request: ${request}`);
       const response = await octokit.rest.pulls.update(request);
 
       core.info(`Response: ${response.status}`);
