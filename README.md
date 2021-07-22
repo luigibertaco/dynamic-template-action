@@ -46,7 +46,7 @@ This PR changes:
 
 ## Inputs
 
-## `token`
+### `token`
 
 **Required** The `GITHUB_TOKEN` secret for the repository. It is required to
 give access to the action to perform changes to the Pull Request body using the
