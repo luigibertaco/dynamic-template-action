@@ -19,6 +19,11 @@ async function run(){
       const pr = github.context.payload.pull_request;
       core.info(`Pull request body: ${pr.body}`);
       core.info(`Pull request title: ${pr.title}`);
+      if(customInput){
+        Object.entries(customInput).forEach(([key, value]) => {
+          core.info(`Custom Property {{ custom.${key} }} will render ${value}`);
+        })
+      }
 
       const viewData = {...pr, custom:customInput}
 
