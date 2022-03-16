@@ -48,14 +48,39 @@ This PR changes:
 
 ### `token`
 
-**Required** The `GITHUB_TOKEN` secret for the repository. It is required to
-give access to the action to perform changes to the Pull Request body using the
-GitHub API.
+The `GITHUB_TOKEN` secret to access the repository. Defaults to github-actions internal `${{ github.token }}` Token.
+
+### `customJSONInput`
+
+The `customJSONInput` sets additional data to access in your templates. For example data from previous workflow steps. Access it via `{{ custom.YOUR_PROPERTY_NAME }}`
+
 
 ## Example usage
 
+### Basic
+
 ```yaml
       - uses: luigibertaco/dynamic-template-action@1.0.0
+```
+#### Can render:
+```handlebars
+    Your PR was created: {{ head.ref }}
+```
+
+### With customJSONInput
+
+```yaml
+      - name: Get current date
+        id: date
+        run: echo "::set-output name=date::$(date +'%Y-%m-%dT%H:%M:%S')"
+
+      - uses: luigibertaco/dynamic-template-action@1.0.0
         with:
-          token: "${{ secrets.GITHUB_TOKEN }}"
+          customJSONInput: '{
+            "today": "${{steps.date.outputs.date}}"
+          }'
+```
+#### Can render:
+```handlebars
+    Your PR was created: {{ custom.today }}
 ```

@@ -3,7 +3,11 @@ description: 'Adds dynamic template tags to GitHub PR body'
 inputs:
   token:
     description: "The GITHUB_TOKEN secret for the repository"
-    required: true
+    default: ${{ github.token }}
+    required: false
+  customJSONInput:
+    description: "Custom JSON string Input to render in template."
+    required: false
 runs:
   using: 'node12'
   main: 'dist/index.js'
