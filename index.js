@@ -63,7 +63,7 @@ function getCustomInput(){
 
   const customInputObject = customInputValues.reduce((finalObject, keyValueString) => {
     if(!keyValueString) return finalObject;
-    const indexOfSeparator = finalObject.indexOf(":");
+    const indexOfSeparator = keyValueString.indexOf(":");
     const key = keyValueString.substring(0, indexOfSeparator);
     const value = keyValueString.substring(indexOfSeparator + 1);
     return {...finalObject, [key]:value }
