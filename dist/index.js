@@ -7352,9 +7352,7 @@ function getCustomInput(){
   core.info(`customParsedInput type ${typeof customParsedInput}`);
   core.info(`customParsedInput value ${customParsedInput}`);
 
-
-
-  return customInput;
+  return customParsedInput;
 
   // if(!customJSONInput) return;
   // try {
