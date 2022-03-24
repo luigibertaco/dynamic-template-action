@@ -7342,18 +7342,27 @@ function getCustomInput(){
 
   core.info(`customInputValues type ${typeof customInputValues}`);
   core.info(`customInputValues value ${customInputValues}`);
-  if(customInput){
-    Object.entries(customInputValues).forEach(([key, value]) => {
+
+  const customInputObject = customInputValues.reduce((finalObject, keyValueString) => {
+    if(!keyValueString) return finalObject;
+    const indexOfSeparator = finalObject.indexOf(":");
+    const key = keyValueString.substring(0, indexOfSeparator);
+    const value = keyValueString.substring(indexOfSeparator + 1);
+    return {...finalObject, [key]:value }
+  },{})
+
+  if(customInputObject){
+    Object.entries(customInputObject).forEach(([key, value]) => {
       core.info(`Custom Property {{ custom.${key} }} will render ${value}`);
     })
   }
 
-  return customInputValues;
-  
+  return customInputObject;
+
 }
 
 const parseArray = (val) => {
-  const array = val.split('\n').join(',').split(',')
+  const array = val.split('\n')
   const filtered = array.filter((n) => n)
 
   return filtered.map((n) => n.trim())
