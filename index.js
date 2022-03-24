@@ -20,7 +20,11 @@ async function run(){
       const pr = github.context.payload.pull_request;
       core.info(`Pull request body: ${pr.body}`);
       core.info(`Pull request title: ${pr.title}`);
-      core.info(`Pull request title: ${customInput}`)
+      if(customInput){
+        Object.entries(customInput).forEach(([key, value]) => {
+          core.info(`Custom Property {{ custom.${key} }} will render ${value}`);
+        })
+      }
 
 
       const viewData = {...pr, custom:customInput}
@@ -52,37 +56,24 @@ function getCustomInput(){
     required: false,
   });
 
-
-  core.info(`customInput type ${typeof customInput}`);
-  core.info(`customInput value ${customInput}`);
-
-  const customInputValues = parseArray(customInput);
-
-  core.info(`customInputValues type ${typeof customInputValues}`);
-  core.info(`customInputValues value ${customInputValues}`);
-
-  const customInputObject = customInputValues.reduce((finalObject, keyValueString) => {
-    if(!keyValueString) return finalObject;
-    const indexOfSeparator = keyValueString.indexOf(":");
-    const key = keyValueString.substring(0, indexOfSeparator);
-    const value = keyValueString.substring(indexOfSeparator + 1);
-    return {...finalObject, [key]:value }
-  },{})
-
-  if(customInputObject){
-    Object.entries(customInputObject).forEach(([key, value]) => {
-      core.info(`Custom Property {{ custom.${key} }} will render ${value}`);
-    })
+  try {
+    return parseArray(customInput).reduce((customInputObject, keyValueString) => {
+      if(!keyValueString) return customInputObject;
+      const indexOfSeparator = keyValueString.indexOf(":");
+      const key = keyValueString.substring(0, indexOfSeparator);
+      const value = keyValueString.substring(indexOfSeparator + 1);
+      return {...customInputObject, [key]:value }
+    },{})
+  }catch(error){
+    core.error(`Failed to parse custom input: ${error}`);
   }
 
-  return customInputObject;
-
+  return null;
 }
 
 const parseArray = (val) => {
   const array = val.split('\n')
   const filtered = array.filter((n) => n)
-
   return filtered.map((n) => n.trim())
 }
 
