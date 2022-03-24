@@ -50,9 +50,9 @@ This PR changes:
 
 The `GITHUB_TOKEN` secret to access the repository. Defaults to github-actions internal `${{ github.token }}` Token.
 
-### `customJSONInput`
+### `customInput`
 
-The `customJSONInput` sets additional data to access in your templates. For example data from previous workflow steps. Access it via `{{ custom.YOUR_PROPERTY_NAME }}`
+The `customInput` sets additional data to access in your templates. For example data from previous workflow steps. Access it via `{{ custom.YOUR_PROPERTY_NAME }}`
 
 
 ## Example usage
@@ -67,7 +67,7 @@ The `customJSONInput` sets additional data to access in your templates. For exam
     Your PR was created: {{ head.ref }}
 ```
 
-### With customJSONInput
+### With customInput
 
 ```yaml
       - name: Get current date
@@ -78,6 +78,7 @@ The `customJSONInput` sets additional data to access in your templates. For exam
         with:
           customInput: 
             today: ${{ steps.date.outputs.date }}
+            now: ${{ steps.date.outputs.date }}
 ```
 #### Can render:
 ```handlebars
