@@ -76,9 +76,8 @@ The `customJSONInput` sets additional data to access in your templates. For exam
 
       - uses: luigibertaco/dynamic-template-action@1.0.0
         with:
-          customJSONInput: '{
-            "today": "${{steps.date.outputs.date}}"
-          }'
+          customInput: 
+            today: ${{ steps.date.outputs.date }}
 ```
 #### Can render:
 ```handlebars
