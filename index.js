@@ -1,7 +1,6 @@
 const core = require('@actions/core');
 const github = require('@actions/github');
 const mustache = require('mustache');
-const parse = require('action-input-parser');
 
 async function run(){
     try {
