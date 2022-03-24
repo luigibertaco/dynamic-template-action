@@ -21,7 +21,6 @@
   "dependencies": {
     "@actions/core": "^1.4.0",
     "@actions/github": "^5.0.0",
-    "action-input-parser": "^1.2.30",
     "mustache": "^4.2.0"
   }
 }
