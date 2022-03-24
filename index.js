@@ -21,11 +21,7 @@ async function run(){
       core.info(`Pull request body: ${pr.body}`);
       core.info(`Pull request title: ${pr.title}`);
       core.info(`Pull request title: ${customInput}`)
-      if(customInput){
-        Object.entries(customInput).forEach(([key, value]) => {
-          core.info(`Custom Property {{ custom.${key} }} will render ${value}`);
-        })
-      }
+
 
       const viewData = {...pr, custom:customInput}
 
@@ -56,28 +52,29 @@ function getCustomInput(){
     required: false,
   });
 
+
   core.info(`customInput type ${typeof customInput}`);
   core.info(`customInput value ${customInput}`);
 
-  const customParsedInput = parse.getInput("customInput",{
-    type: "array",
-    modifier: (val) => {
-      core.info(`VALUE: ${val}`);
-      return val;
-    }
-  })
+  const customInputValues = parseArray(customInput);
 
-  core.info(`customParsedInput type ${typeof customParsedInput}`);
-  core.info(`customParsedInput value ${customParsedInput}`);
+  core.info(`customInputValues type ${typeof customInputValues}`);
+  core.info(`customInputValues value ${customInputValues}`);
+  if(customInput){
+    Object.entries(customInputValues).forEach(([key, value]) => {
+      core.info(`Custom Property {{ custom.${key} }} will render ${value}`);
+    })
+  }
 
-  return customParsedInput;
+  return customInputValues;
 
-  // if(!customJSONInput) return;
-  // try {
-  //   return JSON.parse(customJSONInput)
-  // }catch(error){
-  //   core.error(`Failed to parse customJSONInput: ${error.message} `);
-  // }
+}
+
+const parseArray = (val) => {
+  const array = val.split('\n').join(',').split(',')
+  const filtered = array.filter((n) => n)
+
+  return filtered.map((n) => n.trim())
 }
 
 run();
