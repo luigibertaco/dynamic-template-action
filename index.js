@@ -1,6 +1,7 @@
 const core = require('@actions/core');
 const github = require('@actions/github');
 const mustache = require('mustache');
+const parse = require('action-input-parser');
 
 async function run(){
     try {
@@ -55,8 +56,21 @@ function getCustomInput(){
     required: false,
   });
 
-  core.info(`customInput ${typeof customInput}`);
-  core.info(`customInput ${customInput}`);
+  core.info(`customInput type ${typeof customInput}`);
+  core.info(`customInput value ${customInput}`);
+
+  const customParsedInput = parse.getInput("customInput",{
+    type: "array",
+    modifier: (val) => {
+      core.info(`VALUE: ${val}`);
+      return val;
+    }
+  })
+
+  core.info(`customParsedInput type ${typeof customParsedInput}`);
+  core.info(`customParsedInput value ${customParsedInput}`);
+
+
 
   return customInput;
 
