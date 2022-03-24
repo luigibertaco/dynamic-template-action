@@ -35,8 +35,8 @@ async function run(){
         owner: github.context.repo.owner,
         repo: github.context.repo.repo,
         pull_number: github.context.payload.pull_request.number,
-        body: mustache.render(pr.body, viewData, undefined, {tags: [ '<%', '%>' ]}),
-        title: mustache.render(pr.title, viewData, undefined, {tags: [ '<%', '%>' ]} ),
+        body: mustache.render(pr.body, viewData),
+        title: mustache.render(pr.title, viewData),
       }
       core.info(`update request: ${request}`);
       const response = await octokit.rest.pulls.update(request);
