@@ -5,8 +5,8 @@ inputs:
     description: "The GITHUB_TOKEN secret for the repository"
     default: ${{ github.token }}
     required: false
-  customJSONInput:
-    description: "Custom JSON string Input to render in template."
+  customInput:
+    description: "Custom array of key value pairs to render in template."
     required: false
 runs:
   using: 'node12'

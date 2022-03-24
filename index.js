@@ -19,6 +19,7 @@ async function run(){
       const pr = github.context.payload.pull_request;
       core.info(`Pull request body: ${pr.body}`);
       core.info(`Pull request title: ${pr.title}`);
+      core.info(`Pull request title: ${customInput}`)
       if(customInput){
         Object.entries(customInput).forEach(([key, value]) => {
           core.info(`Custom Property {{ custom.${key} }} will render ${value}`);
@@ -50,15 +51,21 @@ async function run(){
 }
 
 function getCustomInput(){
-  const customJSONInput = core.getInput("customJSONInput", {
+  const customInput = core.getInput("customInput", {
     required: false,
   });
-  if(!customJSONInput) return;
-  try {
-    return JSON.parse(customJSONInput)
-  }catch(error){
-    core.error(`Failed to parse customJSONInput: ${error.message} `);
-  }
+
+  core.info(`customInput ${typeof customInput}`);
+  core.info(`customInput ${customInput}`);
+
+  return customInput;
+
+  // if(!customJSONInput) return;
+  // try {
+  //   return JSON.parse(customJSONInput)
+  // }catch(error){
+  //   core.error(`Failed to parse customJSONInput: ${error.message} `);
+  // }
 }
 
 run();
